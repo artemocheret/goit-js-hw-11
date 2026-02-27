@@ -9,10 +9,10 @@ const movie = {
   },
 };
 
-console.log("Назва:", movie.title);
-console.log("Режисер:", movie.director);
-console.log("Рік:", movie.year);
-console.log("Рейтинг:", movie.rating);
+console.log(`Назва: ${movie.title}`);
+console.log(`Режисер: ${movie.director}`);
+console.log(`Рік: ${movie.year}`);
+console.log(`Рейтинг: ${movie.rating}`);
 
 if (movie.isHighlyRated()) {
   console.log("Фільм має високий рейтинг (вище 8)");

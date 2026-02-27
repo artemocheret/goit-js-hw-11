@@ -3,33 +3,35 @@ const bankAccount = {
   accountNumber: "1234567890",
   balance: 1000,
 
-  deposit() {
-    const amount = Number(prompt("Введіть суму для поповнення:"));
-
-    if (confirm(`Поповнити рахунок на ${amount} грн?`)) {
-      this.balance += amount;
-      alert(`Рахунок поповнено. Поточний баланс: ${this.balance} грн`);
-    } else {
-      alert("Операцію скасовано");
-    }
+  deposit(amount) {
+    this.balance += amount;
   },
 
-  withdraw() {
-    const amount = Number(prompt("Введіть суму для зняття:"));
-
+  withdraw(amount) {
     if (amount > this.balance) {
-      alert("Недостатньо коштів!");
-      return;
+      return false;
     }
-
-    if (confirm(`Зняти ${amount} грн?`)) {
-      this.balance -= amount;
-      alert(`Гроші знято. Поточний баланс: ${this.balance} грн`);
-    } else {
-      alert("Операцію скасовано");
-    }
+    this.balance -= amount;
+    return true;
   },
 };
 
-bankAccount.deposit();
-bankAccount.withdraw();
+if (confirm("Бажаєте поповнити рахунок?")) {
+  const amount = Number(prompt("Введіть суму для поповнення:"));
+  if (!isNaN(amount) && amount > 0) {
+    bankAccount.deposit(amount);
+    alert(`Рахунок поповнено. Поточний баланс: ${bankAccount.balance} грн`);
+  }
+}
+
+if (confirm("Бажаєте зняти кошти?")) {
+  const amount = Number(prompt("Введіть суму для зняття:"));
+  if (!isNaN(amount) && amount > 0) {
+    const success = bankAccount.withdraw(amount);
+    if (success) {
+      alert(`Гроші знято. Поточний баланс: ${bankAccount.balance} грн`);
+    } else {
+      alert("Недостатньо коштів!");
+    }
+  }
+}
