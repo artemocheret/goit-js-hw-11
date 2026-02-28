@@ -3,15 +3,17 @@ const weather = {
   humidity: 70,
   windSpeed: 10,
 
-  isFreezing(temp) {
-    return temp < 0;
+  checkTemperature(temperature) {
+    return temperature < 0;
   },
 };
 
 const inputTemperature = Number(prompt("Введіть температуру:"));
 
-if (weather.isFreezing(inputTemperature)) {
-  alert("Температура нижче 0 градусів Цельсія");
+weather.temperature = inputTemperature;
+
+if (weather.checkTemperature(inputTemperature)) {
+  console.log("Температура нижче 0 градусів Цельсія");
 } else {
-  alert("Температура вище або дорівнює 0 градусів Цельсія");
+  console.log("Температура вище або дорівнює 0 градусів Цельсія");
 }

@@ -4,34 +4,31 @@ const bankAccount = {
   balance: 1000,
 
   deposit(amount) {
-    this.balance += amount;
+    if (confirm(`Поповнити рахунок на ${amount} грн?`)) {
+      this.balance += amount;
+      alert(`Рахунок поповнено. Поточний баланс: ${this.balance} грн`);
+    } else {
+      alert("Операцію скасовано");
+    }
   },
 
   withdraw(amount) {
     if (amount > this.balance) {
-      return false;
+      alert("Недостатньо коштів!");
+      return;
     }
-    this.balance -= amount;
-    return true;
+
+    if (confirm(`Зняти ${amount} грн?`)) {
+      this.balance -= amount;
+      alert(`Гроші знято. Поточний баланс: ${this.balance} грн`);
+    } else {
+      alert("Операцію скасовано");
+    }
   },
 };
 
-if (confirm("Бажаєте поповнити рахунок?")) {
-  const amount = Number(prompt("Введіть суму для поповнення:"));
-  if (!isNaN(amount) && amount > 0) {
-    bankAccount.deposit(amount);
-    alert(`Рахунок поповнено. Поточний баланс: ${bankAccount.balance} грн`);
-  }
-}
+const amountDeposit = Number(prompt("Введіть суму для поповнення:"));
+const amountWithDraw = Number(prompt("Введіть суму для зняття:"));
 
-if (confirm("Бажаєте зняти кошти?")) {
-  const amount = Number(prompt("Введіть суму для зняття:"));
-  if (!isNaN(amount) && amount > 0) {
-    const success = bankAccount.withdraw(amount);
-    if (success) {
-      alert(`Гроші знято. Поточний баланс: ${bankAccount.balance} грн`);
-    } else {
-      alert("Недостатньо коштів!");
-    }
-  }
-}
+bankAccount.deposit(amountDeposit);
+bankAccount.withdraw(amountWithDraw);
